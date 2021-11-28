@@ -22,11 +22,16 @@ $router->get('/travel_agent', function () use ($router) {
     return response()->json($results);
 });
 
+$router->get('/saved_address', function () use ($router) {
+    $results = app('db')->select("SELECT * FROM saved_addresses");
+    return response()->json($results);
+});
+
 $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');
 
 $router->get('/saved_address/{nim}', 'SavedAddressController@show');
-$router->post('/saved_address', 'SavedAddressController@store');
+// $router->post('/saved_address', 'SavedAddressController@store');
 
 // $router->post('/travel_agent_store', 'TravelAgentController@store');
 $router->get('/mobil/{id_travel_agent}', 'MobilController@show');

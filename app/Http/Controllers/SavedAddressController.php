@@ -12,12 +12,12 @@ class SavedAddressController extends Controller
 {
     public function index()
     {
-        $travel_agent = TravelAgent::all();
+        $saved_addres = SavedAddress::all();
 
         return response()->json([
             'success' => true,
             'message' =>'List Semua Post',
-            'data'    => $travel_agent
+            'data'    => $saved_addres
         ], 200);
     }
     
