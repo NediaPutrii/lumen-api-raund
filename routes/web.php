@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/travel_agent', function () use ($router) {
-    $results = app('db')->select("SELECT * FROM travel_agent");
+    $results = app('db')->select("SELECT * FROM travel_agents");
     return response()->json($results);
 });
 
