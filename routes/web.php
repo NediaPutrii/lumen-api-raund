@@ -27,6 +27,8 @@ $router->get('/saved_address', function () use ($router) {
     return response()->json($results);
 });
 
+$router->get('/myongoing/{nim}', 'OngoingController@show');
+
 $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');
 
