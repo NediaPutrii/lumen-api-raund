@@ -17,10 +17,12 @@ $router->get('/', function () use ($router) {
     return ["Hello Hai..!!!"];
 });
 
-$router->get('/travel_agent', function () use ($router) {
-    $results = app('db')->select("select mobils.id as id_mobil , * from mobils join travel_agents on mobils.id_travel_agent=travel_agents.id_travel_agent");
-    return response()->json($results);
-});
+// $router->get('/travel_agent', function () use ($router) {
+//     $results = app('db')->select("select mobils.id as id_mobil , * from mobils join travel_agents on mobils.id_travel_agent=travel_agents.id_travel_agent");
+//     return response()->json($results);
+// });
+
+$router->get('/travel_agent', 'TravelAgentController@index');
 
 $router->get('/saved_address', function () use ($router) {
     $results = app('db')->select("SELECT * FROM saved_addresses");
