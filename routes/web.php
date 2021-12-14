@@ -18,7 +18,7 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/travel_agent', function () use ($router) {
-    $results = app('db')->select("SELECT * FROM travel_agents");
+    $results = app('db')->select("select mobils.id as id_mobil , * from mobils join travel_agents on mobils.id_travel_agent=travel_agents.id_travel_agent");
     return response()->json($results);
 });
 
@@ -27,7 +27,7 @@ $router->get('/saved_address', function () use ($router) {
     return response()->json($results);
 });
 
-$router->get('/myongoing/{nim}', 'OngoingController@show');
+$router->get('/myongoing', 'OngoingController@show');
 
 $router->post('/register', 'UserController@register');
 $router->post('/login','AuthController@login');

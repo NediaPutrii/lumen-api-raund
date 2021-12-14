@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-
+use DB;
 // use Laravel\Lumen\Routing\Controller as BaseController;
 
 use App\Models\Travel;
@@ -21,9 +21,14 @@ class OngoingController extends Controller
         ], 200);
     }
     
-    public function show($nim)
+    public function show()
     {
-    $post = Travel::where('nim','=',$nim)->get();
+        $credentials = $request->only(['username', 'password']);
+        $token = auth()->guard('api')->attempt($credentials);
+
+        // $user_id = auth()->guard('api')->user()->nim;  
+        $post = DB::select("SELECT travel.id as travel_id, * from travel join travel_agents on travel.id_travel_agent=travel_agents.id_travel_agent where travel.nim=?", [$user_id]);
+    // $post = Travel::where('nim','=',$nim)->get();
 
     if ($post) {
         return response()->json([
