@@ -32,6 +32,9 @@ class UserController extends Controller
             
         ]);
 
-        return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan']);
+        return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan',
+        'data' => $user]);
+        // return response()->json(['data' => $user]);
+
     }
 }
