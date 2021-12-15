@@ -23,6 +23,7 @@ $router->get('/', function () use ($router) {
 // });
 
 $router->get('/travel_agent', 'TravelAgentController@index');
+$router->get('/choose_travel', 'TravelAgentController@index');
 
 $router->get('/saved_address', function () use ($router) {
     $results = app('db')->select("SELECT * FROM saved_addresses");
