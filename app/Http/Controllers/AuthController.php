@@ -62,7 +62,27 @@ class AuthController extends Controller
 
         $credentials = $request->only(['email', 'password']);
 
-        if(!$token = Auth::attempt($credentials)){
+        $token = Auth::attempt($credentials);
+
+        if ($token) {
+            if ($request->filled('device_id')) {
+                Firebase::unSubscribeAllTopic(auth('web')->user()->fcm_token);
+                Firebase::unSubscribeAllTopicByDeviceId($request->device_id);
+                Firebase::updateDeviceId(auth('web')->user()->fcm_token, $request->device_id);
+
+                if (auth('api')->user()->user) {
+                    $classrooms = User::where('nim', auth('api')->user()->nim)
+                        // ->select('classroom_id')
+                        ->get();
+
+                    foreach ($classrooms as $classroom) {
+                        Firebase::subscribeTopic($classroom->classroom_id, $request->device_id);
+                    }
+                }
+            }
+        }
+
+        if(!$token){
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 

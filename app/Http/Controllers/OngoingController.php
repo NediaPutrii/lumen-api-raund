@@ -7,6 +7,8 @@ use DB;
 
 use App\Models\Travel;
 use App\Models\User;
+// use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class OngoingController extends Controller
 {
@@ -23,11 +25,22 @@ class OngoingController extends Controller
     
     public function show()
     {
-        $credentials = $request->only(['username', 'password']);
-        $token = auth()->guard('api')->attempt($credentials);
+        // $credentials = $request->only(['username', 'password']);
+        // $token = auth()->guard('api')->attempt($credentials);
+        // $user_id = auth()->user()->nim; 
+        // $user_id = Auth::user()->id();
+            // $user_id = Auth::user()->id;
+
+        // var_dump ($user_id);
+        $user_id = auth('api')->user()->nim;
 
         // $user_id = auth()->guard('api')->user()->nim;  
-        $post = DB::select("SELECT travel.id as travel_id, * from travel join travel_agents on travel.id_travel_agent=travel_agents.id_travel_agent where travel.nim=?", [$user_id]);
+        // $user_id = auth()->guard('api')
+        $post = DB::select("SELECT travel.id as travel_id,nim, * from travel join travel_agents on travel.id_travel_agent=travel_agents.id_travel_agent where travel.nim=?", [$user_id]);
+        
+        // $post = DB::select("SELECT travel.id as travel_id, * from travel 
+        // join travel_agents on travel.id_travel_agent=travel_agents.id_travel_agent where travel.nim='$user_id'");
+
     // $post = Travel::where('nim','=',$nim)->get();
 
     if ($post) {
