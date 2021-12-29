@@ -25,9 +25,7 @@ $router->group(['middleware' => 'auth'], function($router){
     //logout
     $router->post('/logout', 'AuthController@logout');
 
-    //travel
-    $router->get('/travel_agent', 'TravelAgentController@index');
-    $router->get('/choose_travel', 'TravelAgentController@index');
+    
 
     //profil
     $router->get('/saved_address', function () use ($router) {
@@ -42,7 +40,10 @@ $router->group(['middleware' => 'auth'], function($router){
     //mobil
     $router->get('/mobil/{id_travel_agent}', 'MobilController@show');
 });
+$router->get('/travel_agent', 'TravelAgentController@index');
 
+//travel
+$router->get('/choose_travel', 'TravelAgentController@index');
 // $router->get('/travel_agent', function () use ($router) {
 //     $results = app('db')->select("select mobils.id as id_mobil , * from mobils join travel_agents on mobils.id_travel_agent=travel_agents.id_travel_agent");
 //     return response()->json($results);
