@@ -40,6 +40,9 @@ $router->group(['middleware' => 'auth'], function($router){
     //myhistory
     $router->get('/myhistory', 'HistoryController@show');
 
+    //mysetting
+    $router->get('/mysetting', 'UserController@show');
+
     //mobil
     $router->get('/mobil/{id_travel_agent}', 'MobilController@show');
 });
