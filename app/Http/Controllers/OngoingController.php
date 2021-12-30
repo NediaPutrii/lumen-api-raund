@@ -36,7 +36,7 @@ class OngoingController extends Controller
 
         // $user_id = auth()->guard('api')->user()->nim;  
         // $user_id = auth()->guard('api')
-        $post = DB::select("SELECT travel.id as travel_id,nim, * from travel join travel_agents on travel.id_travel_agent=travel_agents.id_travel_agent where travel.nim=?", [$user_id]);
+        $post = DB::select("SELECT travel.id as travel_id,nim, * from travel join travel_agents on travel.id_travel_agent=travel_agents.id_travel_agent where travel.status=1 and travel.nim=?", [$user_id]);
         
         // $post = DB::select("SELECT travel.id as travel_id, * from travel 
         // join travel_agents on travel.id_travel_agent=travel_agents.id_travel_agent where travel.nim='$user_id'");
