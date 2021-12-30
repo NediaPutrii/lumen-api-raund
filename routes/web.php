@@ -37,11 +37,14 @@ $router->group(['middleware' => 'auth'], function($router){
     //ongoing
     $router->get('/myongoing', 'OngoingController@show');
 
+    //myhistory
+    $router->get('/myhistory', 'HistoryController@show');
+
     //mobil
     $router->get('/mobil/{id_travel_agent}', 'MobilController@show');
 });
-$router->get('/travel_agent', 'TravelAgentController@index');
 
+$router->get('/travel_agent', 'TravelAgentController@index');
 //travel
 $router->get('/choose_travel', 'TravelAgentController@index');
 // $router->get('/travel_agent', function () use ($router) {
