@@ -47,7 +47,7 @@ class HistoryController extends Controller
         return response()->json([
             'success'   => true,
             'message'   => 'Detail Ongoing Travel!',
-            'data'      => $post
+            'history'      => $post
         ], 200);
     } else {
         return response()->json([
