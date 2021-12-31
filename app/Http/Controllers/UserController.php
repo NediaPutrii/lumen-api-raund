@@ -113,7 +113,7 @@ class UserController extends Controller
                 return response()->json([
                     'success'   => true,
                     'message'   => 'Data Sudah di Update',
-                    'data'      => $user
+                    'editprofile'      => $user
                 ], 200);
             } else {
                 return response()->json([
