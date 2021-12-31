@@ -53,21 +53,24 @@ class UserController extends Controller
             // $input= $request->all();
             $user_id = auth('api')->user()->nim;
 
-            $this->validate($request, [
-                'nim' => 'unique:users',
-                'nama' => 'string',
-                'email' => 'unique:users|email',
-                'no_telepon' => 'string'
-            ]);
-            $nim = $request->input('nim');
-            $nama = $request->input('nama');
-            $email = $request->input('email');
-            $no_telepon = $request->input('no_telepon');
+            $user = User::where('nim',[$user_id])->first();
+
+            // $this->validate($request, [
+            //     'nim' => 'string',
+            //     'nama' => 'string',
+            //     'email' => 'email',
+            //     'no_telepon' => 'string'
+            // ]);
+            // $nim = $request->input('nim');
+            // $nama = $request->input('nama');
+            // $email = $request->input('email');
+            // $no_telepon = $request->input('no_telepon');
    
 
-            $user = DB::select("UPDATE users set nama='$nama',nim='$nim', email='$email', no_telepon='$no_telepon' where nim=?", [$user_id]);
+            // $post = DB::select("UPDATE users set nama='$nama',nim='$nim', email='$email', no_telepon='$no_telepon' where nim=?", 
+            // [$user_id]);
         
-       
+            
             // $user = User::update([
             //     'nim' => $nim,
             //     'nama' => $nama,
@@ -77,7 +80,7 @@ class UserController extends Controller
     
             // ]);
     
-            // return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan',
+            // return response()->json(['message' => 'Data Berhasil Diubah',
             // 'data' => $user]);
 
 
@@ -100,10 +103,17 @@ class UserController extends Controller
             // return response()->json("data sudah di update");
 
             if ($user) {
+                $user->nim = $request->nim ? $request->nim : $user->nim  ;
+                $user->nama = $request->nama ? $request->nama: $user->nama  ;
+                $user->email = $request->email ? $request->email: $user->email  ;
+                $user->no_telepon = $request->no_telepon ? $request->no_telepon : $user->no_telepon  ;
+
+                $user->save();
+        
                 return response()->json([
                     'success'   => true,
                     'message'   => 'Data Sudah di Update',
-                    'setting'      => $user
+                    'data'      => $user
                 ], 200);
             } else {
                 return response()->json([
