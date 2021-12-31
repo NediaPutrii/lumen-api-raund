@@ -45,6 +45,9 @@ $router->group(['middleware' => 'auth'], function($router){
 
     //mobil
     $router->get('/mobil/{id_travel_agent}', 'MobilController@show');
+
+    //editprofil
+    $router->put('/myedit', 'UserController@edit');
 });
 
 $router->get('/travel_agent', 'TravelAgentController@index');
