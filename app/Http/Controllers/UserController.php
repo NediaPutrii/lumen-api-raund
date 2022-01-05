@@ -117,6 +117,34 @@ class UserController extends Controller
     
     }
 
+    public function edits(Request $request)
+    {
+        //tampilkan data / get data duls
+        
+            // $input= $request->all();
+            $user_id = auth('api')->user()->nim;
+
+            $user = User::where('nim',[$user_id])->first();
+
+
+            if ($user) {
+                $user->nim = $request->nim ? $request->nim : $user->nim  ;
+                $user->nama = $request->nama ? $request->nama: $user->nama  ;
+                $user->email = $request->email ? $request->email: $user->email  ;
+                $user->no_telepon = $request->no_telepon ? $request->no_telepon : $user->no_telepon  ;
+
+                $user->save();
+        
+                return response()->json($user);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Post Tidak Ditemukan!',
+                ], 404);
+            }
+    
+    }
+
     
 
     public function edit(Request $request)
