@@ -48,6 +48,12 @@ $router->group(['middleware' => 'auth'], function($router){
 
     //editprofil
     $router->put('/myedit', 'UserController@edit');
+
+    //editprofil
+    $router->put('/myedits', 'UserController@edits');
+
+    //changepassword
+    $router->put('/mypassword', 'UserController@changepassword');
 });
 
 $router->get('/travel_agent', 'TravelAgentController@index');
