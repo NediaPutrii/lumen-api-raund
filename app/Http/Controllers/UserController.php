@@ -105,11 +105,7 @@ class UserController extends Controller
 
                 $user->save();
         
-                return response()->json([
-                    'success'   => true,
-                    'message'   => 'Data Sudah di Update',
-                    'changepassword' => $user
-                ], 200);
+                return response()->json($user);
             } else {
                 return response()->json([
                     'success' => false,
