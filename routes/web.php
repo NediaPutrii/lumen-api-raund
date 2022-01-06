@@ -62,6 +62,9 @@ $router->group(['middleware' => 'auth'], function($router){
 
     //tambah transaksi delivery
     $router->post('/adddelivery', 'TravelController@tambahdelivery');
+
+    //tambah travel agen
+    $router->put('/editstatus', 'OngoingController@edits');
 });
 
 

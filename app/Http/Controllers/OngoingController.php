@@ -79,4 +79,68 @@ class OngoingController extends Controller
     
     //     ]);
     // }
+    public function edits(Request $request)
+    {
+        //tampilkan data / get data duls
+        
+            // $input= $request->all();
+            $user_id = auth('api')->user()->nim;
+           $id = $request->id;
+
+            $user = Travel::where('nim',[$user_id])
+            ->where('id',[$id])
+            ->first();
+
+
+            if ($user) {
+                //berhasil login, kirim notifikasi
+            $this->sendNotification();
+
+                $user->status = 2;
+             
+                $user->save();
+        
+                return response()->json($user);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Post Tidak Ditemukan!',
+                ], 404);
+            }
+    
+    }
+
+    public function sendNotification(){
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://fcm.googleapis.com/fcm/send',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>'{
+            "to" : "/topics/pengumuman",
+            "notification" :{
+                "title" : "Hai Maniez", 
+                "body" : "Perjalanan Kamu Sudah Berakhir Ya"
+            }
+        }',
+          CURLOPT_HTTPHEADER => array(
+            'Authorization: key=AAAAiAVppSo:APA91bGc9cz6NXrZpotwqwSCMDf6n-yk4wrZmJFfQCwMZI83vMUzQji4sXFANniuEmfLxZlb--uAXQ6mKocICs3BColCOGkbvZ2g6sJU_G-9JtdXITXuEyGpnlvIs0HWcEpFLD7nYRZo',
+            'Content-Type: application/json'
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+      
+        
+    }
+
 }
