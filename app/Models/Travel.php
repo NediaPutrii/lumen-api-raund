@@ -18,6 +18,29 @@ class Travel extends Model implements AuthenticatableContract, AuthorizableContr
      *
      * @var array
      */
+    protected $fillable = [
+        'current_loc',
+        'destination', 
+        'jumlah_passsanger',
+        'total', 'nim',
+        'id_mobil', 
+        'id_travel_agent',
+        'nama_sender',
+        'no_sender',
+        'nama_receiver',
+        'no_receiver',
+        'berat_paket',
+        'status',
+        'departure',
+        'arrive',
+        'jam_departure',
+        'jam_arrive',
+        'jenis',
+        'current_lat',
+        'current_long',
+        'destination_lat',
+        'destination_long'
+    ];
     // protected $fillable = [
     //     'nama_address','address'
     // ];

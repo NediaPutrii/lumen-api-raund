@@ -56,7 +56,11 @@ $router->group(['middleware' => 'auth'], function($router){
 
     //changepassword
     $router->put('/mypassword', 'UserController@changepassword');
+
+    //tambah transaksi travel
+    $router->post('/addtravel', 'TravelController@tambahtravel');
 });
+
 
 $router->get('/travel_agent', 'TravelAgentController@index');
 //travel
