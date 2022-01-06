@@ -65,6 +65,8 @@ class AuthController extends Controller
         $token = Auth::attempt($credentials);
 
         if ($token) {
+            //berhasil login, kirim notifikasi
+            $this->sendNotification();
             if ($request->filled('device_id')) {
                 Firebase::unSubscribeAllTopic(auth('web')->user()->fcm_token);
                 Firebase::unSubscribeAllTopicByDeviceId($request->device_id);
@@ -84,6 +86,7 @@ class AuthController extends Controller
 
         if(!$token){
             return response()->json(['message' => 'Unauthorized'], 401);
+           
         }
 
         // $generateToken = bin2hex(random_bytes(40));
@@ -96,6 +99,7 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => Auth::factory()->getTTL() * 60
         ],200);
+    
         
     }
 
@@ -106,4 +110,38 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'Pengguna telah logout']);
     }
+
+    public function sendNotification(){
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://fcm.googleapis.com/fcm/send',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>'{
+            "to" : "/topics/pengumuman",
+            "notification" :{
+                "title" : "Hai Maniez", 
+                "body" : "Ada travel baru loh"
+            }
+        }',
+          CURLOPT_HTTPHEADER => array(
+            'Authorization: key=AAAAiAVppSo:APA91bGc9cz6NXrZpotwqwSCMDf6n-yk4wrZmJFfQCwMZI83vMUzQji4sXFANniuEmfLxZlb--uAXQ6mKocICs3BColCOGkbvZ2g6sJU_G-9JtdXITXuEyGpnlvIs0HWcEpFLD7nYRZo',
+            'Content-Type: application/json'
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+      
+        
+    }
+    
 }
