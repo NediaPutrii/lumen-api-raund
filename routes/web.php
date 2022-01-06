@@ -59,6 +59,9 @@ $router->group(['middleware' => 'auth'], function($router){
 
     //tambah transaksi travel
     $router->post('/addtravel', 'TravelController@tambahtravel');
+
+    //tambah transaksi delivery
+    $router->post('/adddelivery', 'TravelController@tambahdelivery');
 });
 
 
