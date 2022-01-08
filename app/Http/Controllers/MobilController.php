@@ -122,8 +122,8 @@ class MobilController extends Controller
           CURLOPT_POSTFIELDS =>'{
             "to" : "/topics/pengumuman",
             "notification" :{
-                "title" : "TBL TBL TBL!!!", 
-                "body" : "Travel Baru Lhoooh!!!"
+                "title" : "Tok Tok", 
+                "body" : "Ada Mobil Baru Maniez <3"
             }
         }',
           CURLOPT_HTTPHEADER => array(
