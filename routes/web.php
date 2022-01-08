@@ -71,6 +71,10 @@ $router->group(['middleware' => 'auth'], function($router){
 
     // edit delivery
     $router->put('/editdelivery', 'TravelController@editdelivery');
+
+    //tambahtravelbaru
+      //tambah transaksi delivery
+      $router->post('/addmobil', 'MobilController@tambahmobil');
 });
 
 

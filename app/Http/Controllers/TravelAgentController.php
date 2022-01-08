@@ -6,6 +6,7 @@ use App\Models\TravelAgent;
 // use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\User;
 use DB;
 use Carbon\Carbon;
 
@@ -41,4 +42,80 @@ class TravelAgentController extends Controller
 
         return response()->json(['message' => 'Pendaftaran pengguna berhasil dilaksanakan']);
     }
+
+    public function tambahtravelagent(Request $request){
+
+        function generateRandomString($length = 5)
+        {
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+        }
+
+        $user_id = auth('api')->user()->nim;
+
+        $user = User::where('nim',[$user_id])->first();
+
+
+        $travel_agent = new TravelAgent;
+
+        $travel_agent ->id = generateRandomString();
+        $travel_agent ->id_travel_agent = generateRandomString();
+        $travel_agent ->nama_travel = $request->nama_travel;
+        $travel_agent ->gambar= $request->gambar;
+       
+        
+        $travel_agent->save();
+
+        if ($travel_agent) {
+              //berhasil login, kirim notifikasi
+              $this->sendNotification();
+
+            return response()->json($travel_agent);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal Menambahkan Transaksi Travel!',
+            ], 404);
+        }
+    }
+
+    public function sendNotification(){
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://fcm.googleapis.com/fcm/send',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS =>'{
+            "to" : "/topics/pengumuman",
+            "notification" :{
+                "title" : "Hai Maniez", 
+                "body" : "Ada Mobil Baru Ni Maniezzz"
+            }
+        }',
+          CURLOPT_HTTPHEADER => array(
+            'Authorization: key=AAAAiAVppSo:APA91bGc9cz6NXrZpotwqwSCMDf6n-yk4wrZmJFfQCwMZI83vMUzQji4sXFANniuEmfLxZlb--uAXQ6mKocICs3BColCOGkbvZ2g6sJU_G-9JtdXITXuEyGpnlvIs0HWcEpFLD7nYRZo',
+            'Content-Type: application/json'
+          ),
+        ));
+        
+        $response = curl_exec($curl);
+        
+        curl_close($curl);
+      
+        
+    }
+
+
 }
