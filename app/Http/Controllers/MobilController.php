@@ -78,7 +78,6 @@ class MobilController extends Controller
 
         $user = User::where('nim',[$user_id])->first();
 
-
         $mobil= new Mobil;
 
         $mobil ->id = generateRandomString();
@@ -102,12 +101,12 @@ class MobilController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal Menambahkan Transaksi Travel!',
+                'message' => 'Gagal Menambahkan Mobil!',
             ], 404);
         }
     }
 
-    public function sendNotification(){
+     public function sendNotification(){
 
         $curl = curl_init();
 
@@ -123,9 +122,8 @@ class MobilController extends Controller
           CURLOPT_POSTFIELDS =>'{
             "to" : "/topics/pengumuman",
             "notification" :{
-                "smile
-                "title" : "Tok Tok", 
-                "body" : "Ada Mobil Baru Ni Maniezzz :*"
+                "title" : "TBL TBL TBL!!!", 
+                "body" : "Travel Baru Lhoooh!!!"
             }
         }',
           CURLOPT_HTTPHEADER => array(

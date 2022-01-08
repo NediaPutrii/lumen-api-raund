@@ -100,8 +100,8 @@ class TravelAgentController extends Controller
           CURLOPT_POSTFIELDS =>'{
             "to" : "/topics/pengumuman",
             "notification" :{
-                "title" : "Hai Maniez", 
-                "body" : "Ada Mobil Baru Ni Maniezzz"
+                "title" : "TBL TBL TBL!!!", 
+                "body" : "Travel Baru Lhoooh!!!"
             }
         }',
           CURLOPT_HTTPHEADER => array(
