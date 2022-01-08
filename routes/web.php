@@ -65,6 +65,12 @@ $router->group(['middleware' => 'auth'], function($router){
 
     //tambah travel agen
     $router->put('/editstatus', 'OngoingController@edits');
+
+    // edit travel
+    $router->put('/edittravel', 'TravelController@edittravel');
+
+    // edit delivery
+    $router->put('/editdelivery', 'TravelController@editdelivery');
 });
 
 
