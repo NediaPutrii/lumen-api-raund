@@ -74,9 +74,9 @@ class MobilController extends Controller
         return $randomString;
         }
 
-        $user_id = auth('api')->user()->nim;
+        // $user_id = auth('api')->user()->nim;
 
-        $user = User::where('nim',[$user_id])->first();
+        // $user = User::where('nim',[$user_id])->first();
 
         $mobil= new Mobil;
 

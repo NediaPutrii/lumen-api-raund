@@ -56,9 +56,9 @@ class TravelAgentController extends Controller
         return $randomString;
         }
 
-        $user_id = auth('api')->user()->nim;
+        // $user_id = auth('api')->user()->nim;
 
-        $user = User::where('nim',[$user_id])->first();
+        // $user = User::where('nim',[$user_id]->first();
 
 
         $travel_agent = new TravelAgent;
