@@ -84,11 +84,10 @@ class OngoingController extends Controller
         //tampilkan data / get data duls
         
             // $input= $request->all();
-            $user_id = auth('api')->user()->nim;
+            // $user_id = auth('api')->user()->nim;
            $id = $request->id;
 
-            $user = Travel::where('nim',[$user_id])
-            ->where('id',[$id])
+            $user = Travel::where('id',[$id])
             ->first();
 
 

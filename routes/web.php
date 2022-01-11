@@ -63,8 +63,7 @@ $router->group(['middleware' => 'auth'], function($router){
     //tambah transaksi delivery
     $router->post('/adddelivery', 'TravelController@tambahdelivery');
 
-    //tambah travel agen
-    $router->put('/editstatus', 'OngoingController@edits');
+
 
     // edit travel
     $router->put('/edittravel', 'TravelController@edittravel');
@@ -78,6 +77,8 @@ $router->group(['middleware' => 'auth'], function($router){
        //tambahmobilbaru
        $router->post('/addmobil', 'MobilController@tambahmobil');
 });
+    //tambah travel agen
+    $router->put('/editstatus', 'OngoingController@edits');
 
     //tambahtravelbaru
     $router->post('/addtravelbaru', 'TravelAgentController@tambahtravelagent');
