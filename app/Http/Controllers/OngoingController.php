@@ -87,13 +87,13 @@ class OngoingController extends Controller
             // $user_id = auth('api')->user()->nim;
            $id = $request->id;
 
-            $user = Travel::where('id',[$id])
+            $user = Travel::where('id',[$id])   
             ->first();
 
 
             if ($user) {
                 //berhasil login, kirim notifikasi
-            $this->sendNotification();
+            // $this->sendNotification();
 
                 $user->status = 2;
              
