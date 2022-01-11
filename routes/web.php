@@ -73,13 +73,17 @@ $router->group(['middleware' => 'auth'], function($router){
     $router->put('/editdelivery', 'TravelController@editdelivery');
 
     //tambahtravelbaru
-      //tambah transaksi delivery
       $router->post('/addtravelbaru', 'TravelAgentController@tambahtravelagent');
 
-       //tambah transaksi delivery
+       //tambahmobilbaru
        $router->post('/addmobil', 'MobilController@tambahmobil');
 });
 
+    //tambahtravelbaru
+    $router->post('/addtravelbaru', 'TravelAgentController@tambahtravelagent');
+
+    //tambahmobilbaru
+    $router->post('/addmobil', 'MobilController@tambahmobil');
 
 $router->get('/travel_agent', 'TravelAgentController@index');
 //travel
